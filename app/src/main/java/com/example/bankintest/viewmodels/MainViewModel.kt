@@ -24,7 +24,7 @@ class MainViewModel : ViewModel(){
 
     var database: AppDatabase? = null
 
-    fun getData(){
+    fun getData(onError:(() -> Unit)){
         scope.launch {
             try {
                 val httpC = OkHttpClient.Builder().build()
@@ -37,6 +37,7 @@ class MainViewModel : ViewModel(){
                     database?.categoryDao()?.insertAll(model.resources)
                 }
             }catch (e:Exception){
+                onError()
                 e.printStackTrace()
             }
         }

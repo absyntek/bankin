@@ -51,7 +51,7 @@ class FirstFragment : Fragment() {
         binding.swipeRefresh.isRefreshing = true
         viewModel.database = AppDatabase.getDatabase(requireContext())
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getData()
+            viewModel.getData{binding.swipeRefresh.isRefreshing = false}
         }
         AppDatabase.getDatabase(requireContext()).categoryDao().getAllCategory().observe(viewLifecycleOwner){
             binding.swipeRefresh.isRefreshing = false
